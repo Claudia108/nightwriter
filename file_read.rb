@@ -15,7 +15,23 @@ class FileRead
   end
 
   def combine_braille_lines(i_braille_message)
+    # message = i_braille_message
+    # line_one = []
+    # line_two = []
+    # line_three = []
     # i = 0
+    # # n = 3
+    # until message[i] == nil
+    #   if i % 3 == 0
+    #     line_one << braille_chop_line(message[i].chomp)
+    #   elsif i % 3 == 1
+    #     line_two << braille_chop_line(message[i].chomp)
+    #   elsif i % 3 == 2
+    #     line_three << braille_chop_line(message[i].chomp)
+    #   end
+    #   i += 1
+    # end
+    
     line_one   = braille_chop_line(i_braille_message[0].chomp + i_braille_message[3].chomp)
     line_two   = braille_chop_line(i_braille_message[1].chomp + i_braille_message[4].chomp)
     line_three = braille_chop_line(i_braille_message[2].chomp + i_braille_message[5].chomp)

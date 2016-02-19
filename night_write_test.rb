@@ -26,17 +26,19 @@ class NightWriteTest < Minitest::Test
  end
 
  def test_it_returns_a_string_printed_on_three_lines
+   skip
    message = NightWrite.new
    assert_equal "0.0.0.\n..0...\n......", message.print_braille("aba")
  end
 
- def test_it_breaks_the_line_after_80_characters
+ def test_it_breaks_the_line_after_40_characters
    skip
    line = NightWrite.new
-   assert_equal "#{line}\n", line.line_break(80)
+   assert_equal "#{line}\n", line.line_break(40)
  end
 
  def test_it_prints_an_additional_character_before_each_capital_letter
+   skip
    message = NightWrite.new
    assert_equal "..0.\n....\n.0..", message.print_braille("A")
  end

@@ -22,10 +22,12 @@ class NightWrite
 
   def message_translate(message)
     braille_message = [[],[],[]]
+    @count = 0
     message.each_char do |char|
       if is_upcase?(char)
         braille_letters = english_letter_translate("Cap")
         load_braille_letters(braille_message, braille_letters)
+        @count += 1
       end
       braille_letters = english_letter_translate(char.downcase)
       load_braille_letters(braille_message, braille_letters)
@@ -40,7 +42,6 @@ class NightWrite
       line_coll << line.shift(40)
     end
     line_coll
-
   end
 
   def print_braille(message)
@@ -68,7 +69,7 @@ class NightWrite
     filename = ARGV.shift || "braille.txt"
     file = File.open(filename, "w")
     file.write("#{print_braille(read_in_message)}")
-    puts "Created 'braille.txt' containing #{print_braille(read_in_message).chars.count / 6} characters"
+    puts "Created 'braille.txt' containing #{(print_braille(read_in_message).chars.count / 6) - @count} characters"
   end
 end
 
@@ -78,5 +79,3 @@ if __FILE__ == $0
   file_one.message_translate(message)
   file_one.write_to_braille_file
 end
-
-  # puts ARGV.inspect
