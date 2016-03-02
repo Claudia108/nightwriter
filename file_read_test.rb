@@ -4,9 +4,8 @@ require_relative 'file_read'
 
 class FileReadTest < Minitest::Test
   def test_it_converts_braille_message_in_english_letters
-    skip
     message = FileRead.new
-    assert_equal "a", message.braille_translate(["","",""])
+    assert_equal "a", message.braille_letter_translate(["0.","..",".."])
   end
 
   def test_it_devides_braille_lines_in_parts_of_two
@@ -15,12 +14,33 @@ class FileReadTest < Minitest::Test
   end
 
   def test_it_combines_same_indexes_in_each_line_to_one_string
-    skip
     letter = FileRead.new
-    line_one = "00","0.",".."
-    line_two = "11","1.",".1"
-    line_three = "22","2.",".2"
-    assert_equal ["00","11","22"],["0.","1.","2."],["..",".1",".2"], letter.combine_braille_lines([line_one, line_two,line_three])
+    lines = [
+      "0000",
+      "1111",
+      "2222",
+      "3333",
+      "4444",
+      "5555"
+    ]
+    result = [
+      "00003333",
+      "11114444",
+      "22225555"
+    ]
+    assert_equal result, letter.combine_braille_lines(lines)
+  end
+
+  def test_it_reads_braille_letters_from_braille_lines
+    reader = FileRead.new
+    braille_lines = [
+      "00003333",
+      "11114444",
+      "22225555"
+    ]
+
+    output_letter = ["00", "11", "22"]
+    assert_equal output_letter, reader.create_braille_letters(braille_lines).first
   end
 
   def test_it_matches_a_braille_letter_with_an_english_letter
@@ -30,10 +50,10 @@ class FileReadTest < Minitest::Test
     assert_equal "b", letter_match.braille_letter_translate(letters_braille[1])
   end
 
-  def test_it_translates_braille_message_to_english_message
-    skip
-    letter_match = FileRead.new
-    letters_braille = [["0.","..",".."],["0.","0.",".."],["00","..",".."]]
-    assert_equal "abc", letter_match.braille_message_translate(letters_braille)
+  def test_it_reads_a_whole_file
+    letter = ["0.0.","..0.","....","0.0.","..0.","...."]
+    file_read = FileRead.new
+    english_letter = "abab"
+    assert_equal english_letter, file_read.braille_message_translate(letter)
   end
 end
