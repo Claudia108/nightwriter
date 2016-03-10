@@ -43,4 +43,41 @@ class NightWriteTest < Minitest::Test
    assert_equal "..0.\n....\n.0..", message.print_braille("A")
  end
 
+ def test_is_number_checks_for_number_character
+   message = NightWrite.new
+   number = "8"
+   assert_equal true, message.is_number?(number)
+ end
+
+ def test_support_numbers_supports_the_translation_of_number_with_surrounding_characters
+   skip
+   message = NightWrite.new
+   number = "5"
+   braille_number = ["++","++","++"], ["55","55","55"], ["  ", "  ","  "]
+   lines = [
+     "0000",
+     "1111",
+     "2222",
+     "3333",
+     "4444",
+     "5555"
+   ]
+   result = [
+     "00003333",
+     "11114444",
+     "22225555"
+   ]
+
+   assert_equal
+   # input english numbers
+   # map those with braille letters
+   # add special character (#) in front and space in back
+   # output: number+ 2 characters
+
+   # if statement: if a number shows up add #
+   # keep track of length of numbers
+   # after last add space
+
+ end
+
 end

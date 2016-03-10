@@ -10,9 +10,30 @@ class NightWrite
   end
 
   def is_upcase?(letter)
-    symbols = [" ", "!", "'", "-", ".", ",", "?"]
+    symbols = [" ", "!", "'", "-", ".", ",", "?",
+              "1", "2", "3", "4", "5", "6", "7", "8", "9"]
     letter == letter.upcase && !symbols.include?(letter)
   end
+
+  def is_number?(number)
+    ("0".."9").to_a.include?(number)
+  end
+
+  def support_numbers(number, braille_message, braille_letters)
+    braille_letters = english_letter_translate("#")
+    load_braille_letters(braille_message, braille_letters)
+    is_number? = false
+    braille_letters = english_letter_translate(char.downcase)
+    load_braille_letters(braille_message, braille_letters)
+
+    braille_letters = english_letter_translate(" ")
+    end
+    load_braille_letters(braille_message, braille_letters)
+    @count += 2
+  end
+
+    # input: number
+    # output: boolean
 
   def load_braille_letters(braille_message, braille_letters)
     braille_message[0] << braille_letters[0]
@@ -27,7 +48,19 @@ class NightWrite
       if is_upcase?(char)
         braille_letters = english_letter_translate("Cap")
         load_braille_letters(braille_message, braille_letters)
+        # binding.pry
         @count += 1
+      elsif is_number?(char)
+        braille_letters = english_letter_translate("#")
+        load_braille_letters(braille_message, braille_letters)
+        is_number? = false
+        braille_letters = english_letter_translate(char.downcase)
+        load_braille_letters(braille_message, braille_letters)
+
+        braille_letters = english_letter_translate(" ")
+        end
+        load_braille_letters(braille_message, braille_letters)
+        @count += 2
       end
       braille_letters = english_letter_translate(char.downcase)
       load_braille_letters(braille_message, braille_letters)
@@ -39,7 +72,7 @@ class NightWrite
     line = braille_message
     line_coll= []
     until line_coll[-1] == []
-      line_coll << line.shift(40)
+      line_coll << line.shift(80)
     end
     line_coll
   end
