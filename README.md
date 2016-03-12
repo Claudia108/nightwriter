@@ -66,7 +66,7 @@ About this point, you should try Braille-ifying a message. Then it's time to div
 
 #### Extension Supporting Numbers
 
-Return to the graphic referenced above and you'll find a the  in the bottom left corner. The representations for 1-9 are actually the same as a-i. This number sign # is a "switch" which means that all of the following "letters", up to the next space, are actually numbers. After the space it's assumed that we're back to words/letters unless we see another number switch.
+The representations for 1-9 are actually the same as a-i. This number sign # is a "switch" which means that all of the following "letters", up to the next space, are actually numbers. After the space it's assumed that we're back to words/letters unless we see another number switch.
 
 ### Project process
 
