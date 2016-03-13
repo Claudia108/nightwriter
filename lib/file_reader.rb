@@ -1,7 +1,7 @@
 require_relative 'letter'
 require 'pry'
 
-class FileRead
+class FileReader
 
   def initialize
     @letter_map = Letter.new
@@ -88,23 +88,23 @@ class FileRead
     "#{english_message.join}"
   end
 
-  def read_in_braille
-    filename = ARGV.shift || "braille.txt"
-    file = File.open(filename, "r")
-    file.readlines
-  end
-
-  def write_to_orig_message_file(message_in_english)
-    filename = ARGV.shift || "original_message.txt"
-    file = File.open(filename, "w")
-    file.write("#{braille_message_translate(read_in_braille)}")
-    puts "Created 'original_message.txt' with #{braille_message_translate(read_in_braille).chars.count} characters"
-  end
+  # def read_in_braille
+  #   filename = ARGV.shift || "braille.txt"
+  #   file = File.open(filename, "r")
+  #   file.readlines
+  # end
+  #
+  # def write_to_orig_message_file(message_in_english)
+  #   filename = ARGV.shift || "original_message.txt"
+  #   file = File.open(filename, "w")
+  #   file.write("#{braille_message_translate(read_in_braille)}")
+  #   puts "Created 'original_message.txt' with #{braille_message_translate(read_in_braille).chars.count} characters"
+  # end
 end
 
-if __FILE__ == $0
-  file_one = FileRead.new
-  message_in_braille = file_one.read_in_braille # array of lines
-  message_in_english = file_one.braille_message_translate(message_in_braille)
-  file_one.write_to_orig_message_file(message_in_english)
-end
+# if __FILE__ == $0
+#   file_one = FileReader.new
+#   message_in_braille = file_one.read_in_braille # array of lines
+#   message_in_english = file_one.braille_message_translate(message_in_braille)
+#   file_one.write_to_orig_message_file(message_in_english)
+# end

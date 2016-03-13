@@ -1,8 +1,9 @@
 require_relative 'letter'
 require 'pry'
 
-class NightWrite
-
+class NightWriter
+  attr_reader :count
+  
   def initialize
     @letter_map = Letter.new
     @count = 0
@@ -82,23 +83,21 @@ class NightWrite
     "#{final.join("\n")}"
   end
 
-  def read_in_message
-    filename = ARGV.shift || "message.txt"
-    file = File.open(filename, "r")
-    file.read.chomp
-  end
-
-  def write_to_braille_file
-    filename = ARGV.shift || "braille.txt"
-    file = File.open(filename, "w")
-    file.write("#{print_braille(read_in_message)}")
-    puts "Created 'braille.txt' containing #{(print_braille(read_in_message).chars.count / 6) - @count} characters"
-  end
+  # def read_in_message
+  #   file = File.open(ARGV.shift || "message.txt", "r")
+  #   file.read.chomp
+  # end
+  #
+  # def write_to_braille_file
+  #   file = File.open(ARGV.shift || "braille.txt", "w")
+  #   file.write("#{print_braille(read_in_message)}")
+  #   puts "Created 'braille.txt' containing #{(print_braille(read_in_message).chars.count / 6) - @count} characters"
+  # end
 end
 
-if __FILE__ == $0
-  file_one = NightWrite.new
-  message = file_one.read_in_message
-  file_one.message_translate(message)
-  file_one.write_to_braille_file
-end
+# if __FILE__ == $0
+#   file_one = NightWriter.new
+#   message = file_one.read_in_message
+#   file_one.message_translate(message)
+#   file_one.write_to_braille_file
+# end
