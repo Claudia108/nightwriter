@@ -2,11 +2,9 @@ require_relative 'letter'
 require 'pry'
 
 class NightWriter
-  attr_reader :count
-  
+
   def initialize
     @letter_map = Letter.new
-    @count = 0
   end
 
   def english_letter_translate(char)
@@ -26,7 +24,6 @@ class NightWriter
   def support_upcase(message)
     message.chars.map do |char|
       if is_upcase?(char)
-        @count += 1
         char.gsub(char, "&#{char.downcase}")
       else
         char
@@ -35,7 +32,6 @@ class NightWriter
   end
 
   def support_numbers(message)
-    @count += 2
     message.gsub(/(\d+)/, '#\1 ')
   end
 
@@ -53,14 +49,12 @@ class NightWriter
   def message_translate(chars)
     braille_message = [[],[],[]]
     upcase_and_number_string(chars).each_char do |char|
-      # braille_letters = english_letter_translate(char)
       load_braille_letters(braille_message, english_letter_translate(char))
     end
     braille_message
   end
 
   def line_break(line)
-    # line = braille_message
     line_coll= []
     until line_coll[-1] == []
       line_coll << line.shift(40)
@@ -82,22 +76,4 @@ class NightWriter
     end
     "#{final.join("\n")}"
   end
-
-  # def read_in_message
-  #   file = File.open(ARGV.shift || "message.txt", "r")
-  #   file.read.chomp
-  # end
-  #
-  # def write_to_braille_file
-  #   file = File.open(ARGV.shift || "braille.txt", "w")
-  #   file.write("#{print_braille(read_in_message)}")
-  #   puts "Created 'braille.txt' containing #{(print_braille(read_in_message).chars.count / 6) - @count} characters"
-  # end
 end
-
-# if __FILE__ == $0
-#   file_one = NightWriter.new
-#   message = file_one.read_in_message
-#   file_one.message_translate(message)
-#   file_one.write_to_braille_file
-# end
