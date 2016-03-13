@@ -1,17 +1,46 @@
 require_relative 'letter'
 require 'pry'
-require 'pry-nav'
 
 class NightWrite
 
-  def english_letter_translate(letter)
-    letter_map = Letter.new
-    letter_map.english_to_braille[letter]
+  def initialize
+    @letter_map = Letter.new
+    @count = 0
+  end
+
+  def english_letter_translate(char)
+      @letter_map.english_to_braille[char.downcase]
   end
 
   def is_upcase?(letter)
-    symbols = [" ", "!", "'", "-", ".", ",", "?"]
+    symbols = [" ", "!", "'", "-", ".", ",", "?", "#", "&",
+              "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
     letter == letter.upcase && !symbols.include?(letter)
+  end
+
+  def is_number?(number)
+    ("0".."9").to_a.include?(number)
+  end
+
+  def support_upcase(message)
+    message.chars.map do |char|
+      if is_upcase?(char)
+        @count += 1
+        char.gsub(char, "&#{char.downcase}")
+      else
+        char
+      end
+    end.join
+  end
+
+  def support_numbers(message)
+    @count += 2
+    message.gsub(/(\d+)/, '#\1 ')
+  end
+
+  def upcase_and_number_string(chars)
+    with_upcase = support_upcase(chars)
+    support_numbers(with_upcase)
   end
 
   def load_braille_letters(braille_message, braille_letters)
@@ -20,23 +49,17 @@ class NightWrite
     braille_message[2] << braille_letters[2]
   end
 
-  def message_translate(message)
+  def message_translate(chars)
     braille_message = [[],[],[]]
-    @count = 0
-    message.each_char do |char|
-      if is_upcase?(char)
-        braille_letters = english_letter_translate("Cap")
-        load_braille_letters(braille_message, braille_letters)
-        @count += 1
-      end
-      braille_letters = english_letter_translate(char.downcase)
-      load_braille_letters(braille_message, braille_letters)
+    upcase_and_number_string(chars).each_char do |char|
+      # braille_letters = english_letter_translate(char)
+      load_braille_letters(braille_message, english_letter_translate(char))
     end
     braille_message
   end
 
-  def line_break(braille_message)
-    line = braille_message
+  def line_break(line)
+    # line = braille_message
     line_coll= []
     until line_coll[-1] == []
       line_coll << line.shift(40)
