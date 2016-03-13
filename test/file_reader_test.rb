@@ -52,14 +52,4 @@ class FileReaderTest < Minitest::Test
                        "..","..","..", "..","..",".0", "00","..",".."]
     assert_equal "a2C", @letter.braille_message_translate(letters_braille)
   end
-
-  def test_read_in_braille_reads_in_braille_file
-    letter = ["0.0.","..0.","....","0.0.","..0.","...."]
-    english_letter = "abab"
-    assert_equal english_letter, @letter.braille_message_translate(letter)
-  end
-
-  def test_write_to_orig_message_file_writes_message_to_txt_file
-
-  end
 end
