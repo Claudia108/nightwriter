@@ -3,6 +3,18 @@ require_relative 'letter'
 
 class FileRead
 
+  def initialize
+    @letter_map = Letter.new
+  end
+
+  def braille_letter_translate(braille_letter)
+    @letter_map.braille_to_english[braille_letter]
+  end
+
+  def braille_number_translate(braille_letter)
+    @letter_map.braille_numbers[braille_letter]
+  end
+
   def braille_chop_line(i_braille_message)
     letter_parts = i_braille_message.chars
     line = []
@@ -27,11 +39,6 @@ class FileRead
     combined_lines
   end
 
-  def braille_letter_translate(braille_letter)
-    letter_map = Letter.new
-    letter_map.braille_to_english[braille_letter]
-  end
-
   def create_braille_letters(braille_lines)
     line_one   = braille_lines[0].chars
     line_two   = braille_lines[1].chars
@@ -48,13 +55,28 @@ class FileRead
     letters
   end
 
+  def number_intake(braille_letter)
+    if braille_letter == [".0",".0","00"]
+      @num_shift = true
+    elsif @num_shift == true
+      braille_number_translate(braille_letter)
+    end
+  end
+
   def braille_message_translate(i_braille_message)
     braille_lines = combine_braille_lines(i_braille_message)
     braille_letters = create_braille_letters(braille_lines)
     english_message = []
     @shift = false
     braille_letters.each do |braille_letter|
-      if braille_letter == ["..","..",".0"]
+      if braille_letter == [".0",".0","00"]
+        @num_shift = true
+      elsif @num_shift == true && braille_letter == ["..","..",".."]
+        @num_shift = false
+      elsif @num_shift == true
+        english_letter = braille_number_translate(braille_letter)
+        english_message << english_letter
+      elsif braille_letter == ["..","..",".0"]
         @shift = true
       elsif @shift == true
         english_letter = braille_letter_translate(braille_letter)
