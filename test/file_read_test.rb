@@ -1,11 +1,16 @@
 require 'Minitest/autorun'
 require 'Minitest/pride'
-require_relative 'file_read'
+require_relative '../lib/file_read'
 
 class FileReadTest < Minitest::Test
   def test_braille_letter_translate_converts_braille_letters_in_english_letters
     message = FileRead.new
     assert_equal "a", message.braille_letter_translate(["0.","..",".."])
+  end
+
+  def test_braille_number_translate_converts_braille_letters_in_numbers
+      message = FileRead.new
+      assert_equal "1", message.braille_number_translate(["0.","..",".."])
   end
 
   def test_braille_chop_line_devides_braille_lines_in_parts_of_two
@@ -31,26 +36,24 @@ class FileReadTest < Minitest::Test
     assert_equal result, letter.combine_braille_lines(lines)
   end
 
-  def test_create_braille_letters_
-  end
-
-  def test_it_reads_braille_letters_from_braille_lines
+  def test_create_braille_letters_converts_braille_lines_into_letters
     reader = FileRead.new
-    braille_lines = [
-      "00003333",
-      "11114444",
-      "22225555"
-    ]
-
-    output_letter = ["00", "11", "22"]
-    assert_equal output_letter, reader.create_braille_letters(braille_lines).first
+    braille_lines = ["0.0.0.0.",
+                     "..0...0.",
+                     "........"]
+    letter = [["0.", "..", ".."], ["0.", "0.", ".."], ["0.", "..", ".."], ["0.", "0.", ".."]]
+    assert_equal letter, reader.create_braille_letters(braille_lines)
   end
 
-  def test_it_matches_a_braille_letter_with_an_english_letter
+  def test_braille_message_translate_converts_braille_letters_with_english_letters
     letter_match = FileRead.new
-    letters = { ["0.","..",".."] => "a", ["0.","0.",".."] => "b", ["00","..",".."] => "c"}
-    letters_braille = [["0.","..",".."],["0.","0.",".."],["00","..",".."]]
-    assert_equal "b", letter_match.braille_letter_translate(letters_braille[1])
+    # for reference:
+    # letters = { ["0.","..",".."] => "a", ["0.","0.",".."] => "b",
+                # ["00","..",".."] => "c", ["..","..",".0"] => "&",
+                # [".0",".0","00"] => "#", ["..","..",".."] => " "}
+    letters_braille = ["0.","..","..", ".0",".0","00", "0.","0.","..",
+                       "..","..","..", "..","..",".0", "00","..",".."]
+    assert_equal "a2C", letter_match.braille_message_translate(letters_braille)
   end
 
   def test_read_in_braille_reads_in_braille_file
@@ -62,12 +65,5 @@ class FileReadTest < Minitest::Test
 
   def test_write_to_orig_message_file_writes_message_to_txt_file
 
-  end
-
-  def test_support_numbers_translates_braille_letters_into_numbers
-    file_read = FileRead.new
-    english_letter = "a3a"
-    letter = ["0.0.","..0.","....","0.0.","..0.","...."]
-    assert_equal english_letter, file_read.braille_message_translate(letter)
   end
 end
