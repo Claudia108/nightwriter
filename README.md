@@ -7,8 +7,11 @@ This project implements systems for generating Braille-like text from normal cha
 Braille uses a two-by-three grid of dots to represent characters. Night Writer simulates that concept by using three lines of symbols:
 
 0.0.0.0.0....00.0.0.00
+
 00.00.0..0..00.0000..0
+
 ....0.0.0....00.0.0...
+
 
 The 0 represents a raised dot. The period is an unraised space. The above code reads "hello world" in normal text.
 The application uses the lowercase letters a-z from the American Foundation for the Blind.
