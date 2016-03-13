@@ -1,5 +1,5 @@
-require 'pry'
 require_relative 'letter'
+require 'pry'
 
 class FileRead
 
@@ -26,7 +26,6 @@ class FileRead
 
   def combine_braille_lines(lines)
     combined_lines = ["", "", ""]
-
     lines.each_with_index do |line, i|
       if i % 3 == 0
         combined_lines[0] << line.chomp
@@ -43,7 +42,6 @@ class FileRead
     line_one   = braille_lines[0].chars
     line_two   = braille_lines[1].chars
     line_three = braille_lines[2].chars
-
     letters = []
     (line_one.length / 2).times do
       character = []
@@ -55,13 +53,13 @@ class FileRead
     letters
   end
 
-  def number_intake(braille_letter)
-    if braille_letter == [".0",".0","00"]
-      @num_shift = true
-    elsif @num_shift == true
-      braille_number_translate(braille_letter)
-    end
-  end
+  # def number_intake(braille_letter)
+  #   if braille_letter == [".0",".0","00"]
+  #     @num_shift = true
+  #   elsif @num_shift == true
+  #     braille_number_translate(braille_letter)
+  #   end
+  # end
 
   def braille_message_translate(i_braille_message)
     braille_lines = combine_braille_lines(i_braille_message)
@@ -110,13 +108,3 @@ if __FILE__ == $0
   message_in_english = file_one.braille_message_translate(message_in_braille)
   file_one.write_to_orig_message_file(message_in_english)
 end
-
-# horace/claudia feedback
-# - doing well mechanically -- pretty comfortable translating ideas into code
-# - enums are ok -- doing well with basic looping; could keep adding to that toolbox over the next couple weeks
-# - biggest thing to focus on is going slower and breaking problems into small approachable pieces
-# - seems like once we identify what the small piece is you are able to get it done pretty easily, so we just need ot get to that point more quickly
-# - need to start annotating our methods -- what is the input and what is the output
-# - dont write code until you have a) a test b) somewhat detailed pseudocode describing the process we need
-# - once we do this it will start to make the testing much more effective
-# - still a little hung up on method receivers vs args "pizza".our_method -> our_object.our_method("pizza")
