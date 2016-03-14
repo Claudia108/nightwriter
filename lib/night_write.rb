@@ -15,7 +15,7 @@ class NightWrite
 
   def character_count(read_in_message)
     count = @night_writer.print_braille(read_in_message).chars.count / 6
-    count - @night_writer.added_character_count(read_in_message)
+    count - @night_writer.added_character_count(read_in_message) - 1
   end
 
   def write_to_braille_file
