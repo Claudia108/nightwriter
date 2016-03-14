@@ -62,15 +62,17 @@ class NightWriter
     line_coll
   end
 
-  def print_braille(message)
-    braille_message = message_translate(message)
-    final =[]
-    line_coll_one    = line_break(braille_message[0])
-    line_coll_two    = line_break(braille_message[1])
-    line_coll_three  = line_break(braille_message[2])
+  def collect_lines(message)
+    line_coll_one    = line_break(message_translate(message)[0])
+    line_coll_two    = line_break(message_translate(message)[1])
+    line_coll_three  = line_break(message_translate(message)[2])
     lines_collected  = [line_coll_one, line_coll_two, line_coll_three]
-    line_coll_one.count.times do |i|
-      lines_collected.each do |line|
+  end
+
+  def print_braille(message)
+    final =[]
+    collect_lines(message[0]).count.times do |i|
+      collect_lines(message).each do |line|
         final << line[i].join
       end
     end
