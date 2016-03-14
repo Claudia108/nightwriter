@@ -12,7 +12,7 @@ class NightWriteTest < Minitest::Test
   end
 
   def test_character_count_counts_characters_printed_in_braille_file
-    assert_equal Fixnum, @night_write.character_count("Md 34 rsdtedseasdfeeadgasdgasgdag").class
-    assert_equal 121, @night_write.character_count("Md 34 rsdtedseasdfeeadgasdgasgdag")
+    assert_equal Fixnum, @night_write.character_count("34th BA!").class
+    assert_equal 8, @night_write.character_count("34th BA!")
   end
 end
