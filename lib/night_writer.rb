@@ -57,7 +57,7 @@ class NightWriter
   def line_break(line)
     line_coll= []
     until line_coll[-1] == []
-      line_coll << line.shift(40)
+      line_coll << line.shift(80)
     end
     line_coll
   end

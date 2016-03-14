@@ -42,8 +42,6 @@ class NightWriterTest < Minitest::Test
     braille_letter = [".0", ".0", "00"]
     braille_message = [[".."],[".0"],["00"]]
     assert_equal ["00", "00"], @letter.load_braille_letters(braille_message, braille_letter)
-    # assert_equal [".0"], message.load_braille_letters(braille_message[1], braille_letter[1])
-    # assert_equal ["00"], message.load_braille_letters(braille_message[2], braille_letter[2])
   end
 
   def test_message_translate_converts_normal_letters_into_braille_letters
@@ -60,16 +58,24 @@ class NightWriterTest < Minitest::Test
                    "1","2","3","4","5","6","7","8","9","0",
                    "1","2","3","4","5","6","7","8","9","0",
                    "1","2","3","4","5","6","7","8","9","0",
+                   "1","2","3","4","5","6","7","8","9","0",
+                   "1","2","3","4","5","6","7","8","9","0",
+                   "1","2","3","4","5","6","7","8","9","0",
+                   "1","2","3","4","5","6","7","8","9","0",
                    "1","2","3","4","5","6","7","8","9","0"]
 
-    line_pieces = [["1","2","3","4","5","6","7","8","9","0",
-                    "1","2","3","4","5","6","7","8","9","0",
-                    "1","2","3","4","5","6","7","8","9","0",
-                    "1","2","3","4","5","6","7","8","9","0"],
-                   ["1","2","3","4","5","6","7","8","9","0",
-                    "1","2","3","4","5","6","7","8","9","0"],[]]
+    line_pieces = [["1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
+                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
+                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
+                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
+                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
+                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
+                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
+                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
+                   ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
+                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"], []]
     assert_equal line_pieces, @letter.line_break(line)
-    assert_equal 40, @letter.line_break(line_pieces)[0][0].length
+    assert_equal 80, @letter.line_break(line_pieces)[0][0].length
   end
 
   def test_print_braille_prints_braille_letters_next_to_each_other
