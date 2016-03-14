@@ -78,4 +78,10 @@ class NightWriter
     end
     "#{final.join("\n")}"
   end
+
+  def added_character_count(chars)
+    number = upcase_and_number_string(chars).chars.find_all {|char| char.include?("#")}.count
+    upcase = upcase_and_number_string(chars).chars.find_all {|char| char.include?("&")}.count
+    number * 2 + upcase + 1
+  end
 end

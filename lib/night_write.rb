@@ -13,14 +13,15 @@ class NightWrite
     file.read.chomp
   end
 
-  def character_count
-    @night_writer.print_braille(read_in_message).chars.count / 6
+  def character_count(read_in_message)
+    count = @night_writer.print_braille(read_in_message).chars.count / 6
+    count - @night_writer.added_character_count(read_in_message)
   end
 
   def write_to_braille_file
     file = File.open(ARGV.shift || "braille.txt", "w")
     file.write("#{@night_writer.print_braille(read_in_message)}")
-    puts "Created 'braille.txt' containing #{character_count} characters"
+    puts "Created 'braille.txt' containing #{character_count(read_in_message)} characters"
   end
 
 end

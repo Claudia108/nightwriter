@@ -11,8 +11,8 @@ class NightWriteTest < Minitest::Test
     assert_equal String, @night_write.read_in_message.class
   end
 
-  def test_character_count_counts_characters_printed_in_original_message_file
-    assert_equal Fixnum, @night_write.character_count.class
-    assert @night_write.character_count
+  def test_character_count_counts_characters_printed_in_braille_file
+    assert_equal Fixnum, @night_write.character_count("Md 34 rsdtedseasdfeeadgasdgasgdag").class
+    assert_equal 121, @night_write.character_count("Md 34 rsdtedseasdfeeadgasdgasgdag")
   end
 end
