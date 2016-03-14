@@ -1,4 +1,4 @@
-require_relative './lib/night_writer.rb'
+require_relative 'night_writer'
 require_relative 'file_read'
 require 'pry'
 

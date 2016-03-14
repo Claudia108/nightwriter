@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative '../file_read'
+require_relative '../lib/file_read'
 
 class FileReadTest < Minitest::Test
   def setup
