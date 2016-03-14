@@ -88,4 +88,8 @@ class NightWriterTest < Minitest::Test
               ["..", "..", "..", ".."]]
     assert_equal output, @letter.message_translate(input)
   end
+
+  def test_added_character_count_counts_characters_minus_added_chars
+    assert_equal 4, @letter.added_character_count("beAT126")
+  end
 end

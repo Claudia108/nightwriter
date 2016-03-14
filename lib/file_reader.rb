@@ -53,23 +53,22 @@ class FileReader
     letters
   end
 
-  def braille_message_translate(i_braille_message)
-    braille_lines = combine_braille_lines(i_braille_message)
+  def braille_message_translate(br_message)
     english_message = []
-    create_braille_letters(braille_lines).each do |braille_letter|
-      if braille_letter == [".0",".0","00"]
+    create_braille_letters(combine_braille_lines(br_message)).each do |br_letter|
+      if br_letter == [".0",".0","00"]
         @num_shift = true
-      elsif @num_shift == true && braille_letter == ["..","..",".."]
+      elsif @num_shift == true && br_letter == ["..","..",".."]
         @num_shift = false
       elsif @num_shift == true
-        english_message << braille_number_translate(braille_letter)
-      elsif braille_letter == ["..","..",".0"]
+        english_message << braille_number_translate(br_letter)
+      elsif br_letter == ["..","..",".0"]
         @shift = true
       elsif @shift == true
-        english_message << braille_letter_translate(braille_letter).upcase
+        english_message << braille_letter_translate(br_letter).upcase
         @shift = false
       else
-        english_message << braille_letter_translate(braille_letter)
+        english_message << braille_letter_translate(br_letter)
       end
     end
     "#{english_message.join}"
